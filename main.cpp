@@ -78,7 +78,7 @@ void svg_text(double left, double baseline, string text)
 
 void svg_rect(double x, double y, double width, double height, string stroke="black", string fill="black")
 {
-    cout << "<rect x='"<<x<<"' y='"<<y<<"' width='"<<width<<"' height='"<<height<<"' stroke='"<<stroke<<"' fill='"<<fill<<"' />";
+ cout << "<rect x='"<<x<<"' y='"<<y<<"' width='"<<width<<"' height='"<<height<<"' stroke='"<<stroke<<"' fill='"<<fill<<"'/>";
 }
 
 void show_histogram_svg(const vector<size_t>& bins)
@@ -102,7 +102,6 @@ void show_histogram_svg(const vector<size_t>& bins)
 }
     svg_end();
 }
-
 int main()
 {
     // ¬вод данных
