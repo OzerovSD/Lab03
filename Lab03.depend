@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1650823514 source:c:\users\gansor\onedrive\Рабочий стол\lab03\lab03\main.cpp
+	"histogram.h"
+	<iostream>
+	<vector>
+	<cmath>
+
+1650823044 c:\users\gansor\onedrive\Рабочий стол\lab03\lab03\histogram.h
+	<vector>
+
+1650823506 source:c:\users\gansor\onedrive\Рабочий стол\lab03\lab03\histogram.cpp
+	"histogram.h"
+
