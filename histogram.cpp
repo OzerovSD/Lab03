@@ -62,11 +62,26 @@ void show_histogram_svg(const vector<size_t>& bins)
     const auto COLOR="#ff8c00";
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
     double top = 0;
+    double max_count=bins[0];// максимальное кол-во цифр в гистограмме
+    size_t color_mas[bins.size()];// массив, которое присваиваем цвет гистограмме
     for (size_t bin : bins)
     {
-    const double bin_width = BLOCK_WIDTH * bin;
-    svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
-    svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT);
+       if (max_count<bin)
+       {
+           max_count=bin;
+       }
+    }
+
+    for(size_t i=0; i<bins.size(); i++)
+    {
+      color_mas[i]=size_t((10 - (bins[i] * 9) / max_count))*111;//высчитываем цвет
+    }
+
+    for (size_t i=0; i<bins.size(); i++)
+    {
+    const double bin_width = BLOCK_WIDTH * bins[i];
+    svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bins[i]));
+    svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, '#'+to_string(color_mas[i]), '#'+to_string(color_mas[i]));
     top += BIN_HEIGHT;
     }
     svg_end();

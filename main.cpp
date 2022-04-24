@@ -57,17 +57,15 @@ int main()
     //Расчет гистограммы
     double min, max;
     find_minmax(numbers,min, max);
-    svg_begin(width, height);
-    svg_end();
-    svg_text(left, baseline, text);
-    svg_rect(x, y, width, height, stroke, fill);
-    show_histogram_svg(bins);
+
+
 
     const auto bins= make_histogram(numbers, bin_count, max, min, number_count);
 
     //Вывод гистограммы
 
     show_histogram_svg(bins);
+
 
 
 return 0;
