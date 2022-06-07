@@ -52,10 +52,6 @@ vector<size_t>make_histogram(struct Input name)
 
 int main(int argc, char* argv[])
 {
-    curl_global_init(CURL_GLOBAL_ALL);
-    const auto input = read_input(cin, true);
-    const auto bins = make_histogram(input);
-    show_histogram_svg(bins);
     string url;
     if (argc>1)
     {
@@ -64,7 +60,13 @@ int main(int argc, char* argv[])
             url=argv[i];
             cout<<argv[i];
         }
+        return 0;
     }
+    curl_global_init(CURL_GLOBAL_ALL);
+    const auto input = read_input(cin, true);
+    const auto bins = make_histogram(input);
+    show_histogram_svg(bins);
+
 
 return 0;
 }
