@@ -3,6 +3,9 @@
 #include <vector>
 #include <cmath>
 #include <curl/curl.h>
+#include <sstream>
+#include <string>
+
 using namespace std;
 
 vector<double>input_numbers(istream& in, size_t count)
@@ -48,28 +51,36 @@ vector<size_t>make_histogram(struct Input name)
     return bins;
 }
 
-int main(int argc, char* argv[])
-{
-    string url;
-    if (argc>1)
-    {
-        CURL *curl = curl_easy_init();
-        if(curl)
+Input download(const string& address) {
+    stringstream buffer;
+    CURL *curl = curl_easy_init();
+    if(curl)
         {
-            CURLcode res;
-            curl_easy_setopt(curl, CURLOPT_URL, argv[1]);
-            res = curl_easy_perform(curl);
-            if (res != CURLE_OK)
+        CURLcode res;
+        curl_easy_setopt(curl, CURLOPT_URL, address.c_str());
+        res = curl_easy_perform(curl);
+        if (res != CURLE_OK)
             {
-                cerr << curl_easy_strerror(res) << endl;
+                cerr <<curl_easy_strerror(res)<<endl;
                 exit(1);
             }
-            curl_easy_cleanup(curl);
+        curl_easy_cleanup(curl);
         }
-        return 0;
-    }
+    return read_input(buffer, false);
+}
+
+int main(int argc, char* argv[])
+{
+    Input input;
+    if (argc>1)
+        {
+        input = download(argv[1]);
+        }
+    else
+        {
+        input = read_input(cin, true);
+        }
     curl_global_init(CURL_GLOBAL_ALL);
-    const auto input = read_input(cin, true);
     const auto bins = make_histogram(input);
     show_histogram_svg(bins);
 
