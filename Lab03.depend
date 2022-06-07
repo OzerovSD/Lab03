@@ -11,3 +11,18 @@
 1650823506 source:c:\users\gansor\onedrive\Рабочий стол\lab03\lab03\histogram.cpp
 	"histogram.h"
 
+1654602210 source:c:\users\gansor\onedrive\Рабочий стол\lab04\lab03\main.cpp
+	"histogram.h"
+	<iostream>
+	<vector>
+	<cmath>
+
+1654601765 c:\users\gansor\onedrive\Рабочий стол\lab04\lab03\histogram.h
+	<vector>
+	<string>
+
+1654601765 source:c:\users\gansor\onedrive\Рабочий стол\lab04\lab03\histogram.cpp
+	"histogram.h"
+	<iostream>
+	<string>
+
