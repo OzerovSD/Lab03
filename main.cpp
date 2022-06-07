@@ -14,58 +14,53 @@ vector<double>input_numbers(istream& in, size_t count)
     return result;
 }
 
+struct Input {
+    vector<double> numbers;
+    size_t bin_count;
+};
 
-vector<size_t>make_histogram(const auto numbers, size_t bin_count, double max, double min, size_t number_count)
+Input
+read_input(istream& in) {
+    Input data;
+
+    cerr << "Enter number count: ";
+    size_t number_count;
+    in >> number_count;
+
+    cerr << "Enter numbers: ";
+    data.numbers = input_numbers(in, number_count);
+
+    cerr<<"Enter bin_count:";//K, кол-во столбцов(корзин)
+    cin>>data.bin_count;
+
+    return data;
+}
+
+
+vector<size_t>make_histogram(size_t bin_count, const vector<double>& numbers)
 {
-    vector<size_t> bins(bin_count,0);//переменная, показывающая кол-во чисел в заданном диапозоне
-    double bin_size=(max-min)/bin_count;//Размер интервала(корзины)
-    for(size_t i=0; i<number_count; i++)
-    {
-        bool found = false;
-        for(size_t j=0; j<(bin_count-1)&& !found; j++)
-        {
-            auto lo=min + j*bin_size;//нижняя граница корзины
-            auto hi=min + (j+1)*bin_size;//верхняя граница корзины
-            if((lo <=numbers[i])&&(numbers[i]<hi))
-            {
-                bins[j]++;
-                found=true;
-            }
+  double min, max;
+  find_minmax(numbers, min, max);
+    vector<size_t> bins(bin_count);
+    for (double number : numbers) {
+        size_t bin = (size_t)((number - min) / (max - min) * bin_count);
+        if (bin == bin_count) {
+            bin--;
         }
-        if (!found)//Для максимального числа
-        {
-            bins[bin_count-1]++;//последний столбец увеличиваем на 1
-        }
+        bins[bin]++;
     }
     return bins;
 }
 
 
+
 int main()
 {
-    // Ввод данных
-    size_t number_count;//N, кол-во чисел
-    cerr<<"Enter number_count:";
-    cin>>number_count;
-
-    const auto numbers = input_numbers(cin, number_count);
-     size_t bin_count;
-     cerr<<"Enter bin_count:";//K, кол-во столбцов(корзин)
-     cin>>bin_count;
-
-    //Расчет гистограммы
-    double min, max;
-    find_minmax(numbers,min, max);
-
-
-
-    const auto bins= make_histogram(numbers, bin_count, max, min, number_count);
-
+   Input results;
+   results=read_input(cin);
     //Вывод гистограммы
-
+   auto bins = make_histogram(results.bin_count, results.numbers);
     show_histogram_svg(bins);
-
-
 
 return 0;
 }
