@@ -13,7 +13,12 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="curl/include" />
 				</Compiler>
+				<Linker>
+					<Add library="curl/lib/libcurl.a" />
+					<Add directory="curl/lib" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/Lab03" prefix_auto="1" extension_auto="1" />
@@ -31,7 +36,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add option="-DCURL_STATICLIB" />
 		</Compiler>
+		<Unit filename=".gitignore" />
+		<Unit filename="histogram.cpp" />
+		<Unit filename="histogram.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <curl/curl.h>
 using namespace std;
 
 vector<double>input_numbers(istream& in, size_t count)
@@ -49,11 +50,21 @@ vector<size_t>make_histogram(struct Input name)
 
 
 
-int main()
+int main(int argc, char* argv[])
 {
+    curl_global_init(CURL_GLOBAL_ALL);
     const auto input = read_input(cin, true);
     const auto bins = make_histogram(input);
     show_histogram_svg(bins);
+    string url;
+    if (argc>1)
+    {
+        for (int i=0; i<argc; i++)
+        {
+            url=argv[i];
+            cout<<argv[i];
+        }
+    }
 
 return 0;
 }
