@@ -7,10 +7,10 @@ using namespace std;
 
 vector<double>input_numbers(istream& in, size_t count)
 {
- vector<double> result(count);
+    vector<double> result(count);
     for (size_t i = 0; i < count; i++)
     {
- in >> result[i];
+    in>>result[i];
     }
     return result;
 }
@@ -48,8 +48,6 @@ vector<size_t>make_histogram(struct Input name)
     return bins;
 }
 
-
-
 int main(int argc, char* argv[])
 {
     string url;
@@ -57,9 +55,9 @@ int main(int argc, char* argv[])
     {
         for (int i=0; i<argc; i++)
         {
-            url=argv[i];
-            cout<<argv[i];
+            cout<<"argv["<<i<<"]="<<argv[i]<<endl;
         }
+        cout<<"argc="<<argc<<endl;
         return 0;
     }
     curl_global_init(CURL_GLOBAL_ALL);

@@ -16,7 +16,7 @@
 					<Add directory="curl/include" />
 				</Compiler>
 				<Linker>
-					<Add library="curl/lib/libcurl.a" />
+					<Add library="curl/lib/libcurl.dll.a" />
 					<Add directory="curl/lib" />
 				</Linker>
 			</Target>
@@ -36,7 +36,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add option="-DCURL_STATICLIB" />
 		</Compiler>
 		<Unit filename=".gitignore" />
 		<Unit filename="histogram.cpp" />
