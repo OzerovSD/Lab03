@@ -30,7 +30,7 @@ Input read_input(istream& in, bool prompt)
     cerr << "Enter numbers: ";
     data.numbers = input_numbers(in, number_count);
     if (prompt)
-    cerr << "enter bin count: ";
+    cerr << "Enter bin count: ";
     in >> data.bin_count;
     return data;
 }
@@ -53,9 +53,8 @@ vector<size_t>make_histogram(struct Input name)
 
 void show_histogram_text (const vector<size_t>& bins)
 {
-    const size_t SCREEN_WIDTH = 80;
-    const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
-
+    const size_t SCREEN_WIDTH=80;
+    const size_t MAX_ASTERISK=SCREEN_WIDTH-4-1;
     size_t max_count=0;
     for (size_t count:bins)
     {
@@ -65,7 +64,6 @@ void show_histogram_text (const vector<size_t>& bins)
         }
     }
     const bool scaling_needed=max_count>MAX_ASTERISK;
-
     for (size_t bin:bins)
     {
         if (bin<100)
