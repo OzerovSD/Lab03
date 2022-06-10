@@ -51,13 +51,54 @@ vector<size_t>make_histogram(struct Input name)
     return bins;
 }
 
+void show_histogram_text (const vector<size_t>& bins)
+{
+    const size_t SCREEN_WIDTH = 80;
+    const size_t MAX_ASTERISK = SCREEN_WIDTH - 4 - 1;
+
+    size_t max_count=0;
+    for (size_t count:bins)
+    {
+        if (count>max_count)
+        {
+            max_count=count;
+        }
+    }
+    const bool scaling_needed=max_count>MAX_ASTERISK;
+
+    for (size_t bin:bins)
+    {
+        if (bin<100)
+        {
+            cout<<' ';
+        }
+        if (bin<10)
+        {
+            cout<<' ';
+        }
+        cout <<bin<<"|";
+
+        size_t height = bin;
+        if (scaling_needed)
+        {
+            const double scaling_factor = (double)MAX_ASTERISK / max_count;
+            height = (size_t)(bin * scaling_factor);
+        }
+
+        for (size_t i=0; i<height; i++)
+        {
+            cout <<'*';
+        }
+        cout <<'\n';
+    }
+}
+
 size_t write_data(void* items, size_t item_size, size_t item_count, void* ctx)
 {
     stringstream* buffer=reinterpret_cast<stringstream*>(ctx);
     size_t data_size=item_size*item_count;
     buffer->write((char*)items, data_size);
     return data_size;
-    return 0;
 }
 
 Input download(const string& address)
@@ -84,29 +125,53 @@ Input download(const string& address)
 int main(int argc, char* argv[])
 {
     Input input;
+    bool format_is_svg = true;
+    string url;
     if (argc>1)
-        {
-        input = download(argv[1]);
-        }
-    else
-        {
-        input = read_input(cin, true);
-        }
     {
-        CURL *curl = curl_easy_init();
-        if(curl)
+        if (string(argv[argc - 1]) == "-format")
         {
-            CURLcode res;
-            curl_easy_setopt(curl, CURLOPT_URL, argv[1]);
-            res = curl_easy_perform(curl);
-            curl_easy_cleanup(curl);
+            cerr<<"input histogramm format ('text' or 'svg') after [-format] argument"<<endl;
+            exit(1);
         }
-        return 0;
+        for (int i =0; i<argc; i++)
+        {
+            if (string(argv[i])=="-format")
+            {
+                if (string(argv[i+1])=="text")
+                {
+                    format_is_svg=false;
+                }
+                else if(string(argv[i+1])=="svg")
+                {
+                    format_is_svg=true;
+                }
+                else
+                {
+                    cerr <<"input histogramm format ('text' or 'svg') after [-format] argument"<<endl;
+                    exit(1);
+                }
+            }
+            else if (strstr(argv[i],"http")!=NULL)
+            {
+                url=argv[i];
+            }
+        }
+        input=download(url);
+    }
+    else
+    {
+        input = read_input(cin, true);
     }
     curl_global_init(CURL_GLOBAL_ALL);
     const auto bins = make_histogram(input);
-    show_histogram_svg(bins);
-
-
+    if (format_is_svg)
+    {
+        show_histogram_svg(bins);
+    }
+    else
+    {
+        show_histogram_text(bins);
+    }
 return 0;
 }
