@@ -53,11 +53,14 @@ int main(int argc, char* argv[])
     string url;
     if (argc>1)
     {
-        for (int i=0; i<argc; i++)
+        CURL *curl = curl_easy_init();
+        if(curl)
         {
-            cout<<"argv["<<i<<"]="<<argv[i]<<endl;
+            CURLcode res;
+            curl_easy_setopt(curl, CURLOPT_URL, argv[1]);
+            res = curl_easy_perform(curl);
+            curl_easy_cleanup(curl);
         }
-        cout<<"argc="<<argc<<endl;
         return 0;
     }
     curl_global_init(CURL_GLOBAL_ALL);
