@@ -71,7 +71,7 @@
 	<string>
 	<iostream>
 
-1654885274 source:d:\lab04\lab03\main.cpp
+1654949652 source:d:\lab04\lab03\main.cpp
 	"histogram.h"
 	<iostream>
 	<vector>
@@ -79,6 +79,7 @@
 	<curl/curl.h>
 	<sstream>
 	<string>
+	<windows.h>
 
 1654601765 22cf... build: выполнен пункт 3.1.1
 	"histogram.h"

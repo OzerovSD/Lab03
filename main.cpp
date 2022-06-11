@@ -5,6 +5,7 @@
 #include <curl/curl.h>
 #include <sstream>
 #include <string>
+#include <windows.h>
 
 using namespace std;
 
@@ -122,6 +123,9 @@ Input download(const string& address)
 
 int main(int argc, char* argv[])
 {
+    DWORD info = GetVersion();
+    printf("System info: %u or 0x%x\n", info, info);
+
     Input input;
     bool format_is_svg = true;
     string url;
