@@ -122,6 +122,11 @@ Input download(const string& address)
 
 int main(int argc, char* argv[])
 {
+    const char* name = "Commander Shepard";
+    int year = 2154;
+    printf("%s was born in %d.\n", name, year);// Commander Shepard was born in 2154.
+    printf("n = %08x\n", 0x1234567); // 01234567
+    return 0;
     Input input;
     bool format_is_svg = true;
     string url;
@@ -132,7 +137,7 @@ int main(int argc, char* argv[])
             cerr<<"input histogramm format ('text' or 'svg') after [-format] argument"<<endl;
             exit(1);
         }
-        for (int i =0; i<argc; i++)
+        for(int i=0; i<argc; i++)
         {
             if (string(argv[i])=="-format")
             {
@@ -150,7 +155,7 @@ int main(int argc, char* argv[])
                     exit(1);
                 }
             }
-            else if (strstr(argv[i],"http")!=NULL)
+            else if (strstr(argv[i],"http://")!=NULL)
             {
                 url=argv[i];
             }
