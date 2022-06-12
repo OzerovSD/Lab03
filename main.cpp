@@ -9,7 +9,7 @@
 
 using namespace std;
 
-vector<double>input_numbers(istream& in, size_t count)
+vector<double>input_numbers(istream& in, size_t count)//
 {
     vector<double> result(count);
     for (size_t i = 0; i < count; i++)
@@ -20,7 +20,7 @@ vector<double>input_numbers(istream& in, size_t count)
 }
 
 
-Input read_input(istream& in, bool prompt)
+Input read_input(istream& in, bool prompt)//ввод данных , принимающий поток ввода
 {
     Input data;
     if (prompt)
@@ -123,23 +123,8 @@ Input download(const string& address)
 
 int main(int argc, char* argv[])
 {
-    DWORD info = GetVersion();
-    printf("System info: %u or 0x%x\n", info, info);
-
-    DWORD mask =0x0000ffff;
-    DWORD version=info&mask;
-    DWORD version_major=version&0x00ff;
-    DWORD version_minor=version&0xff00;
-    printf("Windows v%u.%u",version_major,version_minor);
-    return 0;
-
-    if((info & 0x8000'0000)==0)
-    {
-        DWORD build=info>>16;
-        printf(" (build %u)\n",build);
-    }
-
     Input input;
+    curl_global_init(CURL_GLOBAL_ALL);
     bool format_is_svg = true;
     string url;
     if (argc>1)
@@ -176,9 +161,8 @@ int main(int argc, char* argv[])
     }
     else
     {
-        input = read_input(cin, true);
+        input = read_input(cin, true);//вызов функции ввода данных
     }
-    curl_global_init(CURL_GLOBAL_ALL);
     const auto bins = make_histogram(input);
     if (format_is_svg)
     {
@@ -188,5 +172,6 @@ int main(int argc, char* argv[])
     {
         show_histogram_text(bins);
     }
+
 return 0;
 }

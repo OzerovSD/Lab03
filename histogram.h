@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <windows.h>
 
 
 using namespace std;
@@ -13,7 +14,8 @@ struct Input
     vector<double> numbers;
     size_t bin_count;
 };
-
+string System_Info();
+string Computer_Name();
 void find_minmax(const vector<double>& numbers, double& min, double& max);
 void svg_begin(double &width, double &height);
 void svg_end();

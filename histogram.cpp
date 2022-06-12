@@ -1,7 +1,41 @@
 #include "histogram.h"
+#include <iostream>
+#include <vector>
+#include <math.h>
 
+using namespace std;
 
- void find_minmax(const vector<double>& numbers, double& min, double& max)
+string System_info()
+{
+    string result;
+    const size_t MAX_LEN=256;
+    char str_info[MAX_LEN];
+    DWORD info=GetVersion();
+    DWORD mask=0x0000ffff;
+    DWORD version=info&mask;
+    DWORD version_major=version&0x00ff;
+    DWORD version_minor=version&0xff00;
+    sprintf(str_info,"Windows v%u.%u",version_major,version_minor);
+    result=str_info;
+    if((info&0x8000'0000)==0)
+    {
+        DWORD build = info >> 16;
+        sprintf(str_info, " (build %u)\n", build);
+        result += str_info;
+    }
+    return result;
+}
+
+string Computer_name()
+{
+    DWORD max_len=MAX_COMPUTERNAME_LENGTH+1;
+    char computer_name[max_len];
+    GetComputerNameA(computer_name,&max_len);
+    string result=computer_name;
+    return result;
+}
+
+void find_minmax(const vector<double>& numbers, double& min, double& max)
 {
     if(numbers.size() == 0)
     {
@@ -58,6 +92,7 @@ void show_histogram_svg(const vector<size_t>& bins)
     const auto BLOCK_WIDTH = 10;
     const auto NAMECOLOR="darkorange";
     const auto COLOR="#ff8c00";
+    const auto SYS_INDENT_LEFT = 20;
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
     double top = 0;
     double max_count=bins[0];// максимальное кол-во цифр в гистограмме
@@ -82,5 +117,11 @@ void show_histogram_svg(const vector<size_t>& bins)
     svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, '#'+to_string(color_mas[i]), '#'+to_string(color_mas[i]));
     top += BIN_HEIGHT;
     }
+    string sys_info =System_info();
+    string comp_name =Computer_name();
+    svg_text(SYS_INDENT_LEFT, BIN_HEIGHT * bins.size() + TEXT_BASELINE, sys_info);
+    svg_text(SYS_INDENT_LEFT, BIN_HEIGHT * bins.size() + 2 * TEXT_BASELINE, comp_name);
     svg_end();
 }
+
+

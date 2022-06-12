@@ -60,18 +60,22 @@
 
 1653913563 c:\users\gansor\onedrive\Рабочий стол\lab04\lab03\curl\include\curl\typecheck-gcc.h
 
-1654606097 source:d:\lab04\lab03\histogram.cpp
+1655070519 source:d:\lab04\lab03\histogram.cpp
 	"histogram.h"
+	<iostream>
+	<vector>
+	<math.h>
 
 1654602210 D
 	<curl/curl.h>
 
-1654606110 d:\lab04\lab03\histogram.h
+1654982695 d:\lab04\lab03\histogram.h
 	<vector>
 	<string>
 	<iostream>
+	<windows.h>
 
-1654952121 source:d:\lab04\lab03\main.cpp
+1655068321 source:d:\lab04\lab03\main.cpp
 	"histogram.h"
 	<iostream>
 	<vector>
